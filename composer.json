@@ -1,6 +1,6 @@
 {
     "name": "bacart/transliteration",
-    "description": "Bacart transliteration util",
+    "description": "Bacart transliteration",
     "type": "library",
     "keywords": [
         "php",

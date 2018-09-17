@@ -5,7 +5,7 @@ namespace Bacart\Transliteration;
 /**
  * Based on Mediawiki's UtfNormal.
  */
-class TransliterationUtils
+class Transliteration
 {
     protected const UNKNOWN = '?';
 
@@ -47,7 +47,10 @@ class TransliterationUtils
             $string = (string) substr($string, 0, $length) ?: $string;
         }
 
-        return str_replace('_', '-', $string);
+        return trim(
+            str_replace('_', '-', $string),
+            '-'
+        );
     }
 
     /**
@@ -96,7 +99,7 @@ class TransliterationUtils
         $result = '';
 
         foreach ($matches[0] ?? [] as $str) {
-            if ($str[0] < '\x80') {
+            if ($str[0] < "\x80") {
                 // ASCII chunk: guaranteed to be valid UTF-8 and in normal form C, so
                 // skip over it.
                 $result .= $str;
@@ -122,7 +125,7 @@ class TransliterationUtils
                     $sequence = $head = $c;
 
                     do {
-                        if (--$len && ($c = $str[++$i]) >= '\x80' && $c < '\xc0') {
+                        if (--$len && ($c = $str[++$i]) >= "\x80" && $c < "\xc0") {
                             // legal tail bytes are nice
                             $sequence .= $c;
                         } elseif (0 === $len) {
@@ -164,11 +167,11 @@ class TransliterationUtils
                     }
 
                     $head = '';
-                } elseif ($c < '\x80') {
+                } elseif ($c < "\x80") {
                     // ASCII byte
                     $result .= $c;
                     $head = '';
-                } elseif ($c < '\xc0') {
+                } elseif ($c < "\xc0") {
                     // illegal tail bytes
                     if ('' === $head) {
                         $result .= static::UNKNOWN;
@@ -199,14 +202,14 @@ class TransliterationUtils
 
         if (!isset(static::$map[$bank][$srcLng])) {
             $class = sprintf(
-                '%s\TransliterationData\%sTransliteration',
+                '%s\Data\%sTransliteration',
                 __NAMESPACE__, sprintf('x%02x', $bank)
             );
 
             static::$map[$bank][$srcLng] =
                 method_exists($class, 'getTransliteration')
-                ? $class::getTransliteration($srcLng)
-                : [];
+                    ? $class::getTransliteration($srcLng)
+                    : [];
         }
 
         return static::$map[$bank][$srcLng][$ord] ?? static::UNKNOWN;

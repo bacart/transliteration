@@ -1,2 +1,2 @@
-# transliteration
-Transliteration library
+# Bacart transliteration
+Bacart transliteration util.

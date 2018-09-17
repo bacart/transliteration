@@ -1,0 +1,28 @@
+{
+    "name": "bacart/transliteration",
+    "description": "Bacart transliteration util",
+    "type": "library",
+    "keywords": [
+        "php",
+        "transliteration",
+        "bacart"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.1"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Bacart\\Transliteration\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alex Bacart",
+            "email": "alex@bacart.net"
+        }
+    ]
+}

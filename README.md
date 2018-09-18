@@ -60,7 +60,7 @@ This util is released under the [MIT license](LICENSE).
 
 About
 -----
-Bacart transliteration development is led by the [Bacart][2] team.
+Project development is led by the [Bacart][2] team.
 
 [1]: https://packagist.org/packages/bacart/transliteration
 [2]: https://github.com/bacart

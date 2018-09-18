@@ -1,15 +1,12 @@
 Bacart transliteration
 ======================
+[![PHP](https://img.shields.io/badge/php-%5E7.1-blue.svg)](https://img.shields.io/badge/php-%5E7.1-blue.svg)
 [![Latest Stable Version](https://poser.pugx.org/bacart/transliteration/v/stable.png)](https://packagist.org/packages/bacart/transliteration)
 [![Total Downloads](https://poser.pugx.org/bacart/transliteration/downloads.svg)](https://packagist.org/packages/bacart/transliteration)
 [![License](https://poser.pugx.org/bacart/transliteration/license.svg)](https://packagist.org/packages/bacart/transliteration)
 
 Allows to transliterate and trim UTF-8 strings. 
 
-Requirements
-------------
- - PHP >= 7.1
- 
 Installation
 ------------
 ##### Using command line:

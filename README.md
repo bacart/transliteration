@@ -13,14 +13,14 @@ Requirements
 Installation
 ------------
 ##### Using command line:
-Run the command below and you will get the latest version by [Packagist][1].
+Run the following command and you will get the latest version by [Packagist][1].
 
 ```bash
 composer require bacart/transliteration
 ```
 
 ##### Using composer.json
-To use the newest (maybe unstable) version please add following into your composer.json:
+To use the newest (maybe unstable) version add following into your composer.json:
 
 ```json
 {

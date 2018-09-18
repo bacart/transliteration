@@ -8,7 +8,7 @@ Allows to transliterate and trim UTF-8 strings.
 
 Requirements
 ------------
- - PHP 7.1 or higher
+ - PHP >= 7.1
  
 Installation
 ------------

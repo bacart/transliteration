@@ -56,7 +56,7 @@ echo Transliteration::transliterate('Some very long slug text', 20);
 
 License
 -------
-This util is released under the [MIT license](LICENSE).
+This project is released under the [MIT license](LICENSE).
 
 About
 -----

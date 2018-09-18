@@ -1,11 +1,34 @@
-# Bacart transliteration
+Bacart transliteration
+======================
+[![Latest Stable Version](https://poser.pugx.org/bacart/transliteration/v/stable.png)](https://packagist.org/packages/bacart/transliteration)
+[![Total Downloads](https://poser.pugx.org/bacart/transliteration/downloads.svg)](https://packagist.org/packages/bacart/transliteration)
+[![License](https://poser.pugx.org/bacart/transliteration/license.svg)](https://packagist.org/packages/bacart/transliteration)
+
 Allows to transliterate and trim UTF-8 strings. 
 
+Requirements
+------------
+ - PHP 7.1 or higher
+ 
 Installation
 ------------
+##### Using command line:
+Run the command below and you will get the latest version by [Packagist][1].
 
-`composer require bacart/transliteration`
+```bash
+composer require bacart/transliteration
+```
 
+##### Using composer.json
+To use the newest (maybe unstable) version please add following into your composer.json:
+
+```json
+{
+    "require": {
+        "bacart/transliteration": "dev-master"
+    }
+}
+```
 Usage example
 -------------
 ```php
@@ -13,17 +36,11 @@ use Bacart\Transliteration\Transliteration;
 
 ...
 
-$phrases = [
-    'Привет, Мир!',
-    'さようなら',
-];
-
-foreach ($phrases as $phrase) {
-    echo Transliteration::transliterate($phrase);
-}
+echo Transliteration::transliterate('Привет, Мир!');
+echo Transliteration::transliterate('さようなら');
 ```
 
-**Will output:**
+##### Output:
 ```
 privet-mir
 sayounara
@@ -34,5 +51,16 @@ Long text example
 ```php
 echo Transliteration::transliterate('Some very long slug text', 20);
 ```
-**Will output:**
+##### Output:
 `some-very-long-slug`
+
+License
+-------
+This util is released under the [MIT license](LICENSE).
+
+About Us
+--------
+Bacart transliteration development is led by the [Bacart][2] team.
+
+[1]: https://packagist.org/packages/bacart/transliteration
+[2]: https://github.com/bacart

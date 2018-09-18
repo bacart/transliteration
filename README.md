@@ -58,8 +58,8 @@ License
 -------
 This util is released under the [MIT license](LICENSE).
 
-About Us
---------
+About
+-----
 Bacart transliteration development is led by the [Bacart][2] team.
 
 [1]: https://packagist.org/packages/bacart/transliteration

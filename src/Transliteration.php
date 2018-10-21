@@ -188,13 +188,13 @@ class Transliteration
     }
 
     /**
-     * @param string      $ord
+     * @param int         $ord
      * @param string|null $srcLng
      *
      * @return string
      */
     protected static function transliterationReplace(
-        string $ord,
+        int $ord,
         string $srcLng = null
     ): string {
         $bank = $ord >> 8;
@@ -206,7 +206,7 @@ class Transliteration
                 __NAMESPACE__, sprintf('x%02x', $bank)
             );
 
-            static::$map[$bank][$srcLng] =
+            static::$map[$bank][$srcLng ?: ''] =
                 method_exists($class, 'getTransliteration')
                     ? $class::getTransliteration($srcLng)
                     : [];

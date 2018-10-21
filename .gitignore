@@ -1,5 +1,6 @@
 .idea
 .DS_STORE
 .php_cs.cache
+psalm.xml
 composer.lock
 /vendor/

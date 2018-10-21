@@ -12,12 +12,10 @@
         "php": "^7.1"
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.10.3",
-        "vimeo/psalm": "^2.0"
+        "phpstan/phpstan": "^0.10.3"
     },
     "suggest": {
-        "phpstan/phpstan": "PHPStan - PHP Static Analysis Tool",
-        "vimeo/psalm": "A static analysis tool for finding errors in PHP applications"
+        "phpstan/phpstan": "PHPStan - PHP Static Analysis Tool"
     },
     "config": {
         "sort-packages": true

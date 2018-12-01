@@ -18,9 +18,9 @@ $finder = PhpCsFixer\Finder::create()->in(__DIR__.'/src');
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([
-        '@PHPUnit48Migration:risky'             => true,
         '@Symfony'                              => true,
         '@Symfony:risky'                        => true,
+        '@PHPUnit48Migration:risky'             => true,
         'array_syntax'                          => ['syntax' => 'short'],
         'binary_operator_spaces'                => ['align_double_arrow' => true],
         'combine_consecutive_unsets'            => true,

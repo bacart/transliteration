@@ -1,45 +1,48 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()->in(__DIR__);
+if (!file_exists(__DIR__.'/src')) {
+    exit(0);
+}
+
+$fileHeaderComment = <<<COMMENT
+This file is part of the Bacart package.
+
+(c) Alex Bacart <alex@bacart.net>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+COMMENT;
+
+$finder = PhpCsFixer\Finder::create()->in(__DIR__.'/src');
 
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
-    ->setRules(
-        [
-            '@Symfony'                            => true,
-            '@Symfony:risky'                      => true,
-            'array_syntax'                        => ['syntax' => 'short'],
-            'ordered_class_elements'              => true,
-            'ordered_imports'                     => true,
-            'phpdoc_add_missing_param_annotation' => true,
-            'phpdoc_align'                        => true,
-            'semicolon_after_instruction'         => true,
-            'protected_to_private'                => false,
-            'is_null'                             => true,
-            'no_useless_else'                     => true,
-            'no_useless_return'                   => true,
-            'phpdoc_order'                        => true,
-            'php_unit_strict'                     => true,
-            'strict_comparison'                   => true,
-            'combine_consecutive_unsets'          => true,
-            'heredoc_to_nowdoc'                   => true,
-            'void_return'                         => true,
-            'self_accessor'                       => false,
-            'no_extra_consecutive_blank_lines'    => [
-                'break',
-                'continue',
-                'extra',
-                'return',
-                'throw',
-                'use',
-                'parenthesis_brace_block',
-                'square_brace_block',
-                'curly_brace_block',
-            ],
-            'binary_operator_spaces' => [
-                'align_double_arrow' => true,
-                'align_equals'       => false,
-            ],
-        ]
-    )
-    ->setFinder($finder);
+    ->setRules([
+        '@PHPUnit48Migration:risky'             => true,
+        '@Symfony'                              => true,
+        '@Symfony:risky'                        => true,
+        'array_syntax'                          => ['syntax' => 'short'],
+        'binary_operator_spaces'                => ['align_double_arrow' => true],
+        'combine_consecutive_unsets'            => true,
+        'fopen_flags'                           => false,
+        'header_comment'                        => ['header' => $fileHeaderComment, 'separate' => 'both'],
+        'linebreak_after_opening_tag'           => true,
+        'mb_str_functions'                      => true,
+        'no_php4_constructor'                   => true,
+        'no_unreachable_default_argument_value' => true,
+        'no_useless_else'                       => true,
+        'no_useless_return'                     => true,
+        'ordered_class_elements'                => true,
+        'ordered_imports'                       => true,
+        'php_unit_strict'                       => true,
+        'phpdoc_add_missing_param_annotation'   => ['only_untyped' => false],
+        'phpdoc_align'                          => true,
+        'phpdoc_order'                          => true,
+        'protected_to_private'                  => true,
+        'self_accessor'                         => false,
+        'semicolon_after_instruction'           => true,
+        'strict_comparison'                     => true,
+        'strict_param'                          => true,
+    ])
+    ->setFinder($finder)
+;

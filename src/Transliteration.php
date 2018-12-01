@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Bacart package.
+ *
+ * (c) Alex Bacart <alex@bacart.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Bacart\Transliteration;
 
 /**
@@ -34,17 +43,17 @@ class Transliteration
         ]);
 
         // remove remaining unsafe characters
-        $string = preg_replace('![^0-9A-Za-z_.-]!', '', $string);
+        $string = (string) preg_replace('![^0-9A-Za-z_.-]!', '', $string);
 
         // remove multiple consecutive non-alphabetical characters
-        $string = preg_replace('/(_)_+|(\.)\.+|(-)-+/', '\\1\\2\\3', $string);
+        $string = (string) preg_replace('/(_)_+|(\.)\.+|(-)-+/', '\\1\\2\\3', $string);
 
         // trim and lowercase
-        $string = strtolower(trim($string, ' _'));
+        $string = mb_strtolower(trim($string, ' _'));
 
         // cut the result
         if ($length > 0) {
-            $string = (string) substr($string, 0, $length) ?: $string;
+            $string = (string) (mb_substr($string, 0, $length) ?: $string);
         }
 
         return trim(
@@ -114,7 +123,7 @@ class Transliteration
             // Since PHP is not the fastest language on earth, some of this code is a
             // little ugly with inner loop optimizations.
             $head = '';
-            $chunk = \strlen($str);
+            $chunk = mb_strlen($str);
             $len = $chunk + 1;
 
             for ($i = -1; --$len;) {

@@ -27,7 +27,6 @@ return PhpCsFixer\Config::create()
         'fopen_flags'                           => false,
         'header_comment'                        => ['header' => $fileHeaderComment, 'separate' => 'both'],
         'linebreak_after_opening_tag'           => true,
-        'mb_str_functions'                      => true,
         'no_php4_constructor'                   => true,
         'no_unreachable_default_argument_value' => true,
         'no_useless_else'                       => true,

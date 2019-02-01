@@ -15,12 +15,13 @@ interface TransliterationInterface
 {
     public const DEFAULT_LENGTH = 30;
     public const DEFAULT_REPLACE = '-';
-    public const UNKNOWN = '?';
+    public const DEFAULT_UNKNOWN = '?';
 
     /**
      * @param string      $string
      * @param int         $length
      * @param string      $replace
+     * @param string      $unknown
      * @param string|null $srcLng
      *
      * @return string
@@ -29,6 +30,7 @@ interface TransliterationInterface
         string $string,
         int $length = self::DEFAULT_LENGTH,
         string $replace = self::DEFAULT_REPLACE,
+        string $unknown = self::DEFAULT_UNKNOWN,
         string $srcLng = null
     ): string;
 }

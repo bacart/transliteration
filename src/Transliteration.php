@@ -29,9 +29,10 @@ class Transliteration implements TransliterationInterface
         string $string,
         int $length = TransliterationInterface::DEFAULT_LENGTH,
         string $replace = TransliterationInterface::DEFAULT_REPLACE,
+        string $unknown = TransliterationInterface::DEFAULT_UNKNOWN,
         string $srcLng = null
     ): string {
-        $string = strtr(static::transliterationProcess($string, $srcLng), [
+        $string = strtr(static::transliterationProcess($string, $unknown, $srcLng), [
             ' ' => '_',
             '-' => '_',
             '.' => '_',
@@ -59,13 +60,15 @@ class Transliteration implements TransliterationInterface
 
     /**
      * @param string      $string
+     * @param string      $unknown
      * @param string|null $srcLng
      *
      * @return string
      */
     protected static function transliterationProcess(
         string $string,
-        string $srcLng = null
+        string $unknown,
+        ?string $srcLng
     ): string {
         // ASCII is always valid NFC
         if (!preg_match('/[\x80-\xff]/', $string)) {
@@ -135,12 +138,12 @@ class Transliteration implements TransliterationInterface
                         } elseif (0 === $len) {
                             // premature end of string, drop a replacement character
                             // into output to represent the invalid UTF-8 sequence
-                            $result .= static::UNKNOWN;
+                            $result .= $unknown;
 
                             break 2;
                         } else {
                             // illegal tail byte; abandon the sequence
-                            $result .= static::UNKNOWN;
+                            $result .= $unknown;
 
                             // back up and reprocess this byte, it may itself be
                             // a legal ASCII or UTF-8 sequence head
@@ -167,7 +170,7 @@ class Transliteration implements TransliterationInterface
                     }
 
                     if (null !== $ord) {
-                        $result .= static::transliterationReplace($ord, $srcLng);
+                        $result .= static::transliterationReplace($ord, $unknown, $srcLng);
                     }
 
                     $head = '';
@@ -178,11 +181,11 @@ class Transliteration implements TransliterationInterface
                 } elseif ($c < "\xc0") {
                     // illegal tail bytes
                     if ('' === $head) {
-                        $result .= static::UNKNOWN;
+                        $result .= $unknown;
                     }
                 } else {
                     // miscellaneous freaks
-                    $result .= static::UNKNOWN;
+                    $result .= $unknown;
                     $head = '';
                 }
             }
@@ -193,13 +196,15 @@ class Transliteration implements TransliterationInterface
 
     /**
      * @param int         $ord
+     * @param string      $unknown
      * @param string|null $srcLng
      *
      * @return string
      */
     protected static function transliterationReplace(
         int $ord,
-        string $srcLng = null
+        string $unknown,
+        ?string $srcLng
     ): string {
         $bank = $ord >> 8;
         $ord &= 255;
@@ -216,6 +221,6 @@ class Transliteration implements TransliterationInterface
                     : [];
         }
 
-        return static::$map[$bank][$srcLng][$ord] ?? static::UNKNOWN;
+        return static::$map[$bank][$srcLng][$ord] ?? $unknown;
     }
 }

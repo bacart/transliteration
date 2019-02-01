@@ -14,11 +14,8 @@ namespace Bacart\Transliteration;
 /**
  * Based on Mediawiki's UtfNormal.
  */
-class Transliteration
+class Transliteration implements TransliterationInterface
 {
-    public const DEFAULT_LENGTH = 20;
-    public const UNKNOWN = '?';
-
     /** @var int[] */
     protected static $tailBytes = [];
 
@@ -26,15 +23,12 @@ class Transliteration
     protected static $map = [];
 
     /**
-     * @param string      $string
-     * @param int         $length
-     * @param string|null $srcLng
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public static function transliterate(
         string $string,
-        int $length = self::DEFAULT_LENGTH,
+        int $length = TransliterationInterface::DEFAULT_LENGTH,
+        string $replace = TransliterationInterface::DEFAULT_REPLACE,
         string $srcLng = null
     ): string {
         $string = strtr(static::transliterationProcess($string, $srcLng), [
@@ -58,8 +52,8 @@ class Transliteration
         }
 
         return trim(
-            str_replace('_', '-', $string),
-            '-'
+            str_replace('_', $replace, $string),
+            $replace
         );
     }
 

@@ -16,8 +16,8 @@ namespace Bacart\Transliteration;
  */
 class Transliteration
 {
-    protected const DEFAULT_LENGTH = 20;
-    protected const UNKNOWN = '?';
+    public const DEFAULT_LENGTH = 20;
+    public const UNKNOWN = '?';
 
     /** @var int[] */
     protected static $tailBytes = [];
@@ -97,7 +97,7 @@ class Transliteration
                     $remaining = 5;
                 }
 
-                static::$tailBytes[chr($n)] = $remaining;
+                static::$tailBytes[\chr($n)] = $remaining;
             }
         }
 
@@ -124,7 +124,7 @@ class Transliteration
             // Since PHP is not the fastest language on earth, some of this code is a
             // little ugly with inner loop optimizations.
             $head = '';
-            $chunk = strlen($str);
+            $chunk = \strlen($str);
             $len = $chunk + 1;
 
             for ($i = -1; --$len;) {
@@ -157,19 +157,19 @@ class Transliteration
                         }
                     } while (--$remaining);
 
-                    $n = ord($head);
+                    $n = \ord($head);
                     $ord = null;
 
                     if ($n <= 0xdf) {
-                        $ord = ($n - 192) * 64 + (ord($sequence[1]) - 128);
+                        $ord = ($n - 192) * 64 + (\ord($sequence[1]) - 128);
                     } elseif ($n <= 0xef) {
-                        $ord = ($n - 224) * 4096 + (ord($sequence[1]) - 128) * 64 + (ord($sequence[2]) - 128);
+                        $ord = ($n - 224) * 4096 + (\ord($sequence[1]) - 128) * 64 + (\ord($sequence[2]) - 128);
                     } elseif ($n <= 0xf7) {
-                        $ord = ($n - 240) * 262144 + (ord($sequence[1]) - 128) * 4096 + (ord($sequence[2]) - 128) * 64 + (ord($sequence[3]) - 128);
+                        $ord = ($n - 240) * 262144 + (\ord($sequence[1]) - 128) * 4096 + (\ord($sequence[2]) - 128) * 64 + (\ord($sequence[3]) - 128);
                     } elseif ($n <= 0xfb) {
-                        $ord = ($n - 248) * 16777216 + (ord($sequence[1]) - 128) * 262144 + (ord($sequence[2]) - 128) * 4096 + (ord($sequence[3]) - 128) * 64 + (ord($sequence[4]) - 128);
+                        $ord = ($n - 248) * 16777216 + (\ord($sequence[1]) - 128) * 262144 + (\ord($sequence[2]) - 128) * 4096 + (\ord($sequence[3]) - 128) * 64 + (\ord($sequence[4]) - 128);
                     } elseif ($n <= 0xfd) {
-                        $ord = ($n - 252) * 1073741824 + (ord($sequence[1]) - 128) * 16777216 + (ord($sequence[2]) - 128) * 262144 + (ord($sequence[3]) - 128) * 4096 + (ord($sequence[4]) - 128) * 64 + (ord($sequence[5]) - 128);
+                        $ord = ($n - 252) * 1073741824 + (\ord($sequence[1]) - 128) * 16777216 + (\ord($sequence[2]) - 128) * 262144 + (\ord($sequence[3]) - 128) * 4096 + (\ord($sequence[4]) - 128) * 64 + (\ord($sequence[5]) - 128);
                     }
 
                     if (null !== $ord) {

@@ -13,7 +13,7 @@ namespace Bacart\Transliteration;
 
 interface TransliterationInterface
 {
-    public const DEFAULT_LENGTH = 30;
+    public const DEFAULT_LENGTH = 40;
     public const DEFAULT_REPLACE = '-';
     public const DEFAULT_UNKNOWN = '?';
 

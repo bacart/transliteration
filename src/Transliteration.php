@@ -48,7 +48,7 @@ class Transliteration implements TransliterationInterface
         $string = strtolower(trim($string, ' _'));
 
         // cut the result
-        if ($length > 0) {
+        if ($length > TransliterationInterface::DEFAULT_LENGTH) {
             $string = (string) substr($string, 0, $length) ?: $string;
         }
 

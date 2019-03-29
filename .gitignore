@@ -1,5 +1,10 @@
-.idea
+###> files ###
 .DS_STORE
 .php_cs.cache
 composer.lock
+###< files ###
+
+###> directories ###
+/.idea/
 /vendor/
+###< directories ###

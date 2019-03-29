@@ -19,7 +19,6 @@ return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony'                              => true,
-        '@Symfony:risky'                        => true,
         '@PHPUnit48Migration:risky'             => true,
         'array_syntax'                          => ['syntax' => 'short'],
         'binary_operator_spaces'                => ['align_double_arrow' => true],
@@ -35,9 +34,7 @@ return PhpCsFixer\Config::create()
         'ordered_imports'                       => true,
         'php_unit_strict'                       => true,
         'phpdoc_add_missing_param_annotation'   => ['only_untyped' => false],
-        'phpdoc_align'                          => true,
         'phpdoc_order'                          => true,
-        'protected_to_private'                  => true,
         'self_accessor'                         => false,
         'semicolon_after_instruction'           => true,
         'strict_comparison'                     => true,

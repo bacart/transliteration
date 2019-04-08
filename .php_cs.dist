@@ -23,6 +23,7 @@ return PhpCsFixer\Config::create()
         'array_syntax'                          => ['syntax' => 'short'],
         'binary_operator_spaces'                => ['align_double_arrow' => true],
         'combine_consecutive_unsets'            => true,
+        'declare_strict_types'                  => true,
         'fopen_flags'                           => false,
         'header_comment'                        => ['header' => $fileHeaderComment, 'separate' => 'both'],
         'linebreak_after_opening_tag'           => true,

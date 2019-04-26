@@ -1,10 +1,14 @@
 ###> files ###
-.DS_STORE
-.php_cs.cache
-composer.lock
+/.DS_STORE
+/composer.lock
 ###< files ###
 
 ###> directories ###
 /.idea/
 /vendor/
 ###< directories ###
+
+###> friendsofphp/php-cs-fixer ###
+/.php_cs
+/.php_cs.cache
+###< friendsofphp/php-cs-fixer ###

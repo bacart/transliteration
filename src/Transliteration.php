@@ -122,9 +122,9 @@ class Transliteration implements TransliterationInterface
             //
             // Since PHP is not the fastest language on earth, some of this code is a
             // little ugly with inner loop optimizations.
-            $head = '';
+            $head  = '';
             $chunk = strlen($str);
-            $len = $chunk + 1;
+            $len   = $chunk + 1;
 
             for ($i = -1; --$len;) {
                 $c = $str[++$i];
@@ -156,7 +156,7 @@ class Transliteration implements TransliterationInterface
                         }
                     } while (--$remaining);
 
-                    $n = ord($head);
+                    $n   = ord($head);
                     $ord = null;
 
                     if ($n <= 0xdf) {

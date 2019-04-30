@@ -15,7 +15,7 @@ namespace Bacart\Transliteration;
 
 interface TransliterationInterface
 {
-    public const DEFAULT_LENGTH = 0;
+    public const DEFAULT_LENGTH  = 0;
     public const DEFAULT_REPLACE = '-';
     public const DEFAULT_UNKNOWN = '?';
 

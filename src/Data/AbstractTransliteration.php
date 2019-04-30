@@ -22,7 +22,7 @@ abstract class AbstractTransliteration
      */
     public static function getTransliteration(string $srcLng = null): array
     {
-        $base = static::getBase();
+        $base     = static::getBase();
         $variants = static::getVariants();
 
         if (null !== $srcLng && isset($variants[$srcLng])) {

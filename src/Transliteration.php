@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Bacart\Transliteration;
 
+use Bacart\Transliteration\Data\AbstractTransliteration;
+
 /**
  * Based on Mediawiki's UtfNormal.
  */
@@ -67,11 +69,8 @@ class Transliteration implements TransliterationInterface
      *
      * @return string
      */
-    protected static function transliterationProcess(
-        string $string,
-        string $unknown,
-        ?string $srcLng
-    ): string {
+    protected static function transliterationProcess(string $string, string $unknown, ?string $srcLng): string
+    {
         // ASCII is always valid NFC
         if (!preg_match('/[\x80-\xff]/', $string)) {
             return $string;
@@ -80,8 +79,6 @@ class Transliteration implements TransliterationInterface
         if (empty(static::$tailBytes)) {
             // each UTF-8 head byte is followed by a certain number of tail bytes
             for ($n = 0; $n < 256; ++$n) {
-                $remaining = 0;
-
                 if ($n < 0xc0) {
                     $remaining = 0;
                 } elseif ($n < 0xe0) {
@@ -94,6 +91,8 @@ class Transliteration implements TransliterationInterface
                     $remaining = 4;
                 } elseif ($n < 0xfe) {
                     $remaining = 5;
+                } else {
+                    $remaining = 0;
                 }
 
                 static::$tailBytes[chr($n)] = $remaining;
@@ -129,7 +128,9 @@ class Transliteration implements TransliterationInterface
             for ($i = -1; --$len;) {
                 $c = $str[++$i];
 
-                if ($remaining = static::$tailBytes[$c]) {
+                $remaining = static::$tailBytes[$c];
+
+                if (0 !== $remaining) {
                     // UTF-8 head byte
                     $sequence = $head = $c;
 
@@ -164,11 +165,15 @@ class Transliteration implements TransliterationInterface
                     } elseif ($n <= 0xef) {
                         $ord = ($n - 224) * 4096 + (ord($sequence[1]) - 128) * 64 + (ord($sequence[2]) - 128);
                     } elseif ($n <= 0xf7) {
-                        $ord = ($n - 240) * 262144 + (ord($sequence[1]) - 128) * 4096 + (ord($sequence[2]) - 128) * 64 + (ord($sequence[3]) - 128);
+                        $ord = ($n - 240) * 262144 + (ord($sequence[1]) - 128) * 4096 + (ord($sequence[2]) - 128) *
+                            64                     + (ord($sequence[3]) - 128);
                     } elseif ($n <= 0xfb) {
-                        $ord = ($n - 248) * 16777216 + (ord($sequence[1]) - 128) * 262144 + (ord($sequence[2]) - 128) * 4096 + (ord($sequence[3]) - 128) * 64 + (ord($sequence[4]) - 128);
+                        $ord = ($n - 248)                                        * 16777216 + (ord($sequence[1]) - 128)                                        * 262144 + (ord($sequence[2]) - 128)                                        *
+                            4096                     + (ord($sequence[3]) - 128) * 64                     + (ord($sequence[4]) - 128);
                     } elseif ($n <= 0xfd) {
-                        $ord = ($n - 252) * 1073741824 + (ord($sequence[1]) - 128) * 16777216 + (ord($sequence[2]) - 128) * 262144 + (ord($sequence[3]) - 128) * 4096 + (ord($sequence[4]) - 128) * 64 + (ord($sequence[5]) - 128);
+                        $ord = ($n - 252)             * 1073741824         + (ord($sequence[1]) - 128)             * 16777216         +
+                            (ord($sequence[2]) - 128) * 262144 + (ord($sequence[3]) - 128) * 4096 +
+                            (ord($sequence[4]) - 128) * 64     + (ord($sequence[5]) - 128);
                     }
 
                     if (null !== $ord) {
@@ -203,24 +208,23 @@ class Transliteration implements TransliterationInterface
      *
      * @return string
      */
-    protected static function transliterationReplace(
-        int $ord,
-        string $unknown,
-        ?string $srcLng
-    ): string {
+    protected static function transliterationReplace(int $ord, string $unknown, ?string $srcLng): string
+    {
         $bank = $ord >> 8;
         $ord &= 255;
 
         if (!isset(static::$map[$bank][$srcLng])) {
             $class = sprintf(
                 '%s\Data\%sTransliteration',
-                __NAMESPACE__, sprintf('x%02x', $bank)
+                __NAMESPACE__,
+                sprintf('x%02x', $bank)
             );
 
-            static::$map[$bank][$srcLng ?: ''] =
-                method_exists($class, 'getTransliteration')
-                    ? $class::getTransliteration($srcLng)
-                    : [];
+            $translations = is_subclass_of($class, AbstractTransliteration::class, true)
+                ? $class::getTransliteration($srcLng)
+                : [];
+
+            static::$map[$bank][$srcLng ?: ''] = $translations;
         }
 
         return static::$map[$bank][$srcLng][$ord] ?? $unknown;

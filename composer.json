@@ -13,11 +13,13 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14",
-        "phpstan/phpstan": "^0.11"
+        "phpstan/phpstan": "^0.11",
+        "rector/rector": "^0.4"
     },
     "suggest": {
         "friendsofphp/php-cs-fixer": "A tool to automatically fix PHP Coding Standards issues",
-        "phpstan/phpstan": "PHPStan - PHP Static Analysis Tool"
+        "phpstan/phpstan": "PHPStan - PHP Static Analysis Tool",
+        "rector/rector": "Instant upgrade and refactoring of your PHP code"
     },
     "config": {
         "sort-packages": true

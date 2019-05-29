@@ -33,7 +33,7 @@ abstract class AbstractTransliteration
     }
 
     /**
-     * @return string[]
+     * @return array
      */
     protected static function getBase(): array
     {

@@ -165,15 +165,11 @@ class Transliteration implements TransliterationInterface
                     } elseif ($n <= 0xef) {
                         $ord = ($n - 224) * 4096 + (ord($sequence[1]) - 128) * 64 + (ord($sequence[2]) - 128);
                     } elseif ($n <= 0xf7) {
-                        $ord = ($n - 240) * 262144 + (ord($sequence[1]) - 128) * 4096 + (ord($sequence[2]) - 128) *
-                            64                     + (ord($sequence[3]) - 128);
+                        $ord = ($n - 240) * 262144 + (ord($sequence[1]) - 128) * 4096 + (ord($sequence[2]) - 128) * 64 + (ord($sequence[3]) - 128);
                     } elseif ($n <= 0xfb) {
-                        $ord = ($n - 248)                                        * 16777216 + (ord($sequence[1]) - 128)                                        * 262144 + (ord($sequence[2]) - 128)                                        *
-                            4096                     + (ord($sequence[3]) - 128) * 64                     + (ord($sequence[4]) - 128);
+                        $ord = ($n - 248) * 16777216 + (ord($sequence[1]) - 128) * 262144 + (ord($sequence[2]) - 128) * 4096 + (ord($sequence[3]) - 128) * 64 + (ord($sequence[4]) - 128);
                     } elseif ($n <= 0xfd) {
-                        $ord = ($n - 252)             * 1073741824         + (ord($sequence[1]) - 128)             * 16777216         +
-                            (ord($sequence[2]) - 128) * 262144 + (ord($sequence[3]) - 128) * 4096 +
-                            (ord($sequence[4]) - 128) * 64     + (ord($sequence[5]) - 128);
+                        $ord = ($n - 252) * 1073741824 + (ord($sequence[1]) - 128) * 16777216 + (ord($sequence[2]) - 128) * 262144 + (ord($sequence[3]) - 128) * 4096 + (ord($sequence[4]) - 128) * 64 + (ord($sequence[5]) - 128);
                     }
 
                     if (null !== $ord) {
@@ -214,14 +210,10 @@ class Transliteration implements TransliterationInterface
         $ord &= 255;
 
         if (!isset(static::$map[$bank][$srcLng])) {
-            $class = sprintf(
-                '%s\Data\%sTransliteration',
-                __NAMESPACE__,
-                sprintf('x%02x', $bank)
-            );
+            $class = sprintf('%s\Data\%sTransliteration', __NAMESPACE__, sprintf('x%02x', $bank));
 
-            $translations = is_subclass_of($class, AbstractTransliteration::class, true)
-                ? $class::getTransliteration($srcLng)
+            $translations = is_subclass_of($class, AbstractTransliteration::class)
+                ? call_user_func([$class, 'getTransliteration'], $srcLng)
                 : [];
 
             static::$map[$bank][$srcLng ?: ''] = $translations;
